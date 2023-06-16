@@ -28,7 +28,9 @@ if (confirm('Are you sure you wish to remove all variables?')) {
             for (let qsvd_iter = 0; qsvd_iter < qsvd_variableCount; qsvd_iter++) {
                 
                 // Call our neighbourhood friendly engine to return the variable so we can print out the definition (just in case)
-                engineModuleGlobal.currentApp.getVariableByName(qsvd_variables[qsvd_iter].innerHTML).then(function(qsvd_delete){
+                engineModuleGlobal.currentApp.getVariableByName({
+                    "qName": qsvd_variables[qsvd_iter].innerHTML
+                }).then(function(qsvd_delete){
 
                     // This is wrong, sorry - but it works
                     var qsvd_currentVarName = qsvd_variables[qsvd_iter].innerHTML;
@@ -39,7 +41,9 @@ if (confirm('Are you sure you wish to remove all variables?')) {
                         // Print out the relevant parts to the console, then delete it
                         var qsvd_currentVarValue = qsvd_peek_data.qText;
                         console.log("Loading variable " + (qsvd_iter+1) + "/" + qsvd_variableCount + " [" + qsvd_currentVarName + "]: [" + qsvd_currentVarValue + "]");
-                        engineModuleGlobal.currentApp.destroyVariableByName(qsvd_currentVarName);
+                        engineModuleGlobal.currentApp.destroyVariableByName({
+                            "qName": qsvd_currentVarName
+                        });
 
                         // Check to see if we reached the end (and nothing blew up)
                         if (qsvd_iter+1 == qsvd_variableCount) {
